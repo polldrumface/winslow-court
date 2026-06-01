@@ -23,6 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create empty pnpm-lock if missing
+        run: touch pnpm-lock.yaml
+
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
@@ -34,7 +37,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build client
         run: pnpm --filter client build
